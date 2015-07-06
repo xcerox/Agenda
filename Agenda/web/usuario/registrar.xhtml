@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../layout/layout.xhtml">
+
+            <ui:define name="top">
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form id="frmRegistrarUsuario">
+                    <h:panelGrid columns="2" bgcolor="white">
+                        <h:outputLabel value="Nombre" for="txtNombre" />
+                        <p:inputText id="txtNombre" placeholder="juan"/>
+
+                        <h:outputLabel value="Apellido Paterno" for="txtApellidoPaterno" />
+                        <p:inputText id="txtApellidoPaterno" placeholder="peres"/>
+
+                        <h:outputLabel value="Apellido Materno" for="txtApellidoMaterno" />
+                        <p:inputText id="txtApellidoMaterno" placeholder="otro apellido"/>
+
+                        <h:outputLabel value="Telefono" for="txtTelefono" /> 
+                        <p:inputText id="txtTelefono" placeholder="111-111-1111 "/>
+
+                        <h:outputLabel value="Correo Electronico" for="txtCorreoElectronico" /> 
+                        <p:inputText id="txtCorreoElectronico" placeholder="correo@correo.com"/>
+
+                        <h:outputLabel value="Fecha Nacimiento" for="txtFechaNacimiento" />
+                        <p:calendar id="txtFechaNacimiento" showOn="button" />
+
+                        <h:outputLabel value="Sexo" for="radioSexo" />
+                        <p:selectOneRadio id="radioSexo" >
+                            <f:selectItem  itemLabel="Masculino" itemValue="M"/>
+                            <f:selectItem  itemLabel="Femenino" itemValue="F"/>
+                        </p:selectOneRadio>
+                        
+                        <h:outputLabel value="Contraseña" for="txtContrasenia" />
+                        <p:password id="txtContrasenia"/>
+
+                        <h:outputLabel value="Repita Contraseña" for="txtContraseniaRepita" />
+                        <p:password id="txtContraseniaRepita"/>
+                        
+                        <f:facet name="footer">
+                            <h:panelGroup style="display:block; text-align:center">
+                                <br />
+                                <br />
+                                <p:commandButton value="Registrar Usario" />
+                            </h:panelGroup>
+                        </f:facet>
+                    </h:panelGrid>
+                </h:form>
+                
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

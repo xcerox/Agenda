@@ -16,12 +16,11 @@
 
         <div id="top" class="top">
             <p:megaMenu>
-                <p:submenu label="Inicio">
-                </p:submenu>
+                <p:menuitem value="Inicio" outcome="/index" />
                 <p:submenu label="Usuario">
                     <p:column>
                         <p:submenu label="Crud">
-                            <p:menuitem value="Registrar" url="#"/>
+                            <p:menuitem value="Registrar" outcome="/usuario/registrar"/>
                             <p:menuitem value="Ver" url="#"/>
                         </p:submenu>
                     </p:column>
