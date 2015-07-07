@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 7, 2015 5:14:42 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojos.Tactividadpresupuesto" table="tactividadpresupuesto" catalog="dbappagendajava" optimistic-lock="version">
+        <id name="codigoActividadPresupuesto" type="string">
+            <column name="codigoActividadPresupuesto" length="15" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="tactividad" class="Pojos.Tactividad" fetch="select">
+            <column name="codigoActividad" length="15" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tunidadmedida" class="Pojos.Tunidadmedida" fetch="select">
+            <column name="codigoUnidadMedida" length="15" not-null="true" />
+        </many-to-one>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="65535" not-null="true" />
+        </property>
+        <property name="precioUnitario" type="big_decimal">
+            <column name="precioUnitario" precision="8" not-null="true" />
+        </property>
+        <property name="cantidad" type="float">
+            <column name="cantidad" precision="12" scale="0" not-null="true" />
+        </property>
+        <property name="fechaRegistro" type="timestamp">
+            <column name="fechaRegistro" length="19" not-null="true" />
+        </property>
+        <property name="fechaModificacion" type="timestamp">
+            <column name="fechaModificacion" length="19" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

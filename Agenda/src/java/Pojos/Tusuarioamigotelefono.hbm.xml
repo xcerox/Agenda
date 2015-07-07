@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 7, 2015 5:14:42 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojos.Tusuarioamigotelefono" table="tusuarioamigotelefono" catalog="dbappagendajava" optimistic-lock="version">
+        <id name="codigoUsuarioAmigoTelefono" type="string">
+            <column name="codigoUsuarioAmigoTelefono" length="15" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="tusuarioamigo" class="Pojos.Tusuarioamigo" fetch="select">
+            <column name="codigoUsuarioAmigo" length="15" not-null="true" />
+        </many-to-one>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="65535" not-null="true" />
+        </property>
+        <property name="telefono" type="string">
+            <column name="telefono" length="20" not-null="true" />
+        </property>
+        <property name="fechaRegistro" type="timestamp">
+            <column name="fechaRegistro" length="19" not-null="true" />
+        </property>
+        <property name="fechaModificacion" type="timestamp">
+            <column name="fechaModificacion" length="19" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

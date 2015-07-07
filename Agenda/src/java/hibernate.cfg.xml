@@ -4,19 +4,19 @@
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/DBAPPAgendaJava</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/DBAPPAgendaJava?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">HTSx 0x09@</property>
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.current_session_context_class">thread</property>
     <property name="hibernate.hbm2ddl.auto">validate</property>
-    <mapping class="Pojos.Tusuarioamigotelefono"/>
-    <mapping class="Pojos.Tunidadmedida"/>
-    <mapping class="Pojos.Tactividadcomentario"/>
-    <mapping class="Pojos.Tusuario"/>
-    <mapping class="Pojos.Tactividadpresupuesto"/>
-    <mapping class="Pojos.Tusuarioamigo"/>
-    <mapping class="Pojos.Tactividad"/>
-    <mapping class="Pojos.Tactividadparticipante"/>
+    <mapping resource="Pojos/Tusuarioamigotelefono.hbm.xml"/>
+    <mapping resource="Pojos/Tactividadpresupuesto.hbm.xml"/>
+    <mapping resource="Pojos/Tusuarioamigo.hbm.xml"/>
+    <mapping resource="Pojos/Tusuario.hbm.xml"/>
+    <mapping resource="Pojos/Tactividadcomentario.hbm.xml"/>
+    <mapping resource="Pojos/Tactividad.hbm.xml"/>
+    <mapping resource="Pojos/Tactividadparticipante.hbm.xml"/>
+    <mapping resource="Pojos/Tunidadmedida.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
