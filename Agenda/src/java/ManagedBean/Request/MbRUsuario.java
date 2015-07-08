@@ -35,13 +35,14 @@ public class MbRUsuario {
 
     @PostConstruct
     private void init() {
-        tusuario = new Tusuario();
-        tusuario.setSexo(true);
+        this.tusuario = new Tusuario();
+        this.tusuario.setCodigoUsuario("");
+        this.tusuario.setSexo(true);
     }
 
     private void cleanConnection() {
-        session = null;
-        transaction = null;
+        this.session = null;
+        this.transaction = null;
     }
 
     public String register() throws RuntimeException {
@@ -50,17 +51,16 @@ public class MbRUsuario {
             cleanConnection();
             daoTusuario daoTusuario = new daoTusuario();
 
-            session = HibernateUtil.getSessionFactory().openSession();
-            transaction = session.beginTransaction();
+            this.session = HibernateUtil.getSessionFactory().openSession();
+            this.transaction = this.session.beginTransaction();
 
-            daoTusuario.insert(tusuario, session);
-            transaction.commit();
+            daoTusuario.insert(this.tusuario, this.session);
+            this.transaction.commit();
 
             return "/usuario/registrar";
         } catch (Exception e) {
             return "#";
         }
-
     }
 
     public Tusuario getTusuario() {

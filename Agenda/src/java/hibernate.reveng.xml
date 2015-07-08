@@ -2,12 +2,12 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="DBAPPAgendaJava"/>
-  <table-filter match-name="tactividad"/>
-  <table-filter match-name="tactividadcomentario"/>
-  <table-filter match-name="tunidadmedida"/>
-  <table-filter match-name="tactividadpresupuesto"/>
-  <table-filter match-name="tactividadparticipante"/>
-  <table-filter match-name="tusuario"/>
   <table-filter match-name="tusuarioamigotelefono"/>
   <table-filter match-name="tusuarioamigo"/>
+  <table-filter match-name="tactividadpresupuesto"/>
+  <table-filter match-name="tactividad"/>
+  <table-filter match-name="tactividadcomentario"/>
+  <table-filter match-name="tusuario"/>
+  <table-filter match-name="tactividadparticipante"/>
+  <table-filter match-name="tunidadmedida"/>
 </hibernate-reverse-engineering>
