@@ -5,6 +5,7 @@
  */
 package ManagedBean.Request;
 
+import Util.Encrypt;
 import Pojos.Tusuario;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -12,6 +13,7 @@ import javax.faces.bean.RequestScoped;
 import Dao.daoTusuario;
 import org.hibernate.Session;
 import HibernateUtil.HibernateUtil;
+import java.util.List;
 import org.hibernate.Transaction;
 
 /**
@@ -26,6 +28,7 @@ public class MbRUsuario {
      * Creates a new instance of MbRUsuario
      */
     private Tusuario tusuario;
+    private List<Tusuario> tusuarios;
     private String txtContraseniaRepita;
     private Session session;
     private Transaction transaction;
@@ -49,6 +52,7 @@ public class MbRUsuario {
 
         try {
             cleanConnection();
+            this.tusuario.setContrasenia(Encrypt.sha512(this.tusuario.getContrasenia()));
             daoTusuario daoTusuario = new daoTusuario();
 
             this.session = HibernateUtil.getSessionFactory().openSession();
@@ -58,7 +62,7 @@ public class MbRUsuario {
             this.transaction.commit();
 
             return "/usuario/registrar";
-        } catch (Exception e) {
+        } catch (Exception error) {
             return "#";
         }
     }
