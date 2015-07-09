@@ -14,7 +14,7 @@
     </h:head>
 
     <h:body>
-        <h:form>
+        <h:form id="frmM">
             <div id="top" class="top">
                 <p:megaMenu>
                     <p:menuitem value="Inicio" outcome="/index" />
@@ -29,11 +29,11 @@
                 </p:megaMenu> 
                 <ui:insert name="top">Top</ui:insert>
             </div>
-
-            <div id="content" class="center_content">
-                <ui:insert name="content">Content</ui:insert>
-            </div>
         </h:form>
+
+        <div id="content" class="center_content">
+            <ui:insert name="content">Content</ui:insert>
+        </div>
 
     </h:body>
 
