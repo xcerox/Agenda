@@ -15,43 +15,55 @@
 
             <ui:define name="content">
                 <h:form id="frmRegistrarUsuario">
-                    
-                    <p:messages id="mensajeGeneral" showDetail="true"  autoUpdate="true" closable="true"/>
+
+                    <p:messages id="mensajeGeneral" showDetail="true"  autoUpdate="true" closable="true" />
                     <h:panelGrid columns="2" bgcolor="white">
-                        <h:outputLabel value="Nombre" for="txtNombre" />
-                        <p:inputText id="txtNombre" value="#{mbRUsuario.tusuario.nombre}" placeholder="juan" />
-                        
-                        <h:outputLabel value="Apellido Paterno" for="txtApellidoPaterno" />
-                        <p:inputText id="txtApellidoPaterno" value="#{mbRUsuario.tusuario.apellidoPaterno}" placeholder="peres" />
 
-                        <h:outputLabel value="Apellido Materno" for="txtApellidoMaterno" />
-                        <p:inputText id="txtApellidoMaterno" value="#{mbRUsuario.tusuario.apellidoMaterno}" placeholder="otro apellido" />
+                        <p:outputLabel value="Nombre:" for="txtNombre" />
+                        <p:inputText id="txtNombre" label="Nombre" value="#{mbRUsuario.tusuario.nombre}" placeholder="juan" >
+                            <f:validator validatorId="empty" />
+                        </p:inputText>
 
-                        <h:outputLabel value="Telefono" for="txtTelefono" /> 
-                        <p:inputText id="txtTelefono" value="#{mbRUsuario.tusuario.telefono}" placeholder="111-111-1111" />
+                        <p:outputLabel value="Apellido Paterno:" for="txtApellidoPaterno" />
+                        <p:inputText id="txtApellidoPaterno" label="Apellido paterno" value="#{mbRUsuario.tusuario.apellidoPaterno}" placeholder="peres" >
+                            <f:validator validatorId="empty" />
+                        </p:inputText>
 
-                        <h:outputLabel value="Correo Electronico" for="txtCorreoElectronico" /> 
-                        <p:inputText id="txtCorreoElectronico" value="#{mbRUsuario.tusuario.correoElectronico}" placeholder="correo@correo.com"/>
+                        <p:outputLabel value="Apellido Materno:" for="txtApellidoMaterno" />
+                        <p:inputText id="txtApellidoMaterno" label="Apellido paterno" value="#{mbRUsuario.tusuario.apellidoMaterno}" placeholder="otro apellido" >
+                            <f:validator validatorId="empty" />
+                        </p:inputText>
 
-                        <h:outputLabel value="Fecha Nacimiento" for="txtFechaNacimiento" />
-                        <p:calendar id="txtFechaNacimiento" value="#{mbRUsuario.tusuario.fechaNacimiento}" showOn="button"/>
+                        <p:outputLabel value="Telefono:" for="txtTelefono" /> 
+                        <p:inputText id="txtTelefono" label="Telefono" value="#{mbRUsuario.tusuario.telefono}" placeholder="111-111-1111" />
 
-                        <h:outputLabel value="Sexo" for="radioSexo" />
-                        <p:selectOneRadio id="radioSexo" value="#{mbRUsuario.tusuario.sexo}" >
+                        <p:outputLabel value="Correo Electronico:" for="txtCorreoElectronico" /> 
+                        <p:inputText id="txtCorreoElectronico" label="Correo Electronico" value="#{mbRUsuario.tusuario.correoElectronico}" placeholder="e@correo.com">
+                            <f:validator validatorId="email" />
+                        </p:inputText>
+
+                        <p:outputLabel value="Fecha Nacimiento:" for="txtFechaNacimiento" />
+                        <p:calendar id="txtFechaNacimiento" label="Fecha Nacimiento" value="#{mbRUsuario.tusuario.fechaNacimiento}" showOn="button" pattern="dd/MM/yyyy" required="true" requiredMessage="Fecha de nacimiento es requerido"/>
+
+                        <p:outputLabel value="Sexo:"  for="radioSexo" />
+                        <p:selectOneRadio id="radioSexo" label="Sexo" value="#{mbRUsuario.tusuario.sexo}" >
                             <f:selectItem  itemLabel="Masculino" itemValue="true"/>
                             <f:selectItem  itemLabel="Femenino" itemValue="false"/>
                         </p:selectOneRadio>
 
-                        <h:outputLabel value="Contraseña"  for="txtContrasenia" />
-                        <p:password id="txtContrasenia" value="#{mbRUsuario.tusuario.contrasenia}" />
-
-                        <h:outputLabel value="Repita Contraseña" for="txtContraseniaRepita" />
-                        <p:password id="txtContraseniaRepita" value="#{mbRUsuario.txtContraseniaRepita}" />
-
+                        <p:outputLabel value="Contraseña:" for="txtContrasenia" />
+                        <p:password id="txtContrasenia" label="Contraseña" value="#{mbRUsuario.tusuario.contrasenia}" >
+                            <f:validator validatorId="empty" />
+                        </p:password>
+                        
+                        <p:outputLabel value="Repita Contraseña:" for="txtContraseniaRepita" />
+                        <p:password id="txtContraseniaRepita" label="Repita Contraseña" value="#{mbRUsuario.txtContraseniaRepita}" >
+                            <f:validator validatorId="empty" />
+                        </p:password>
+                        
+                        <div></div>
                         <p:commandButton value="Registrar Usario" action="#{mbRUsuario.register()}" icon="ui-icon-check"  />
                     </h:panelGrid>
-
-
                 </h:form>
 
             </ui:define>

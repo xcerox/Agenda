@@ -5,7 +5,7 @@
  */
 package ManagedBean.Request;
 
-import Util.Encrypt;
+import Util.seguridad.Encrypt;
 import Pojos.Tusuario;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -17,6 +17,7 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.hibernate.Transaction;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -43,6 +44,7 @@ public class MbRUsuario {
         this.tusuario = new Tusuario();
         this.tusuario.setCodigoUsuario("");
         this.tusuario.setSexo(true);
+        this.txtContraseniaRepita = "";
     }
 
     private void cleanConnection() {
@@ -79,7 +81,9 @@ public class MbRUsuario {
 
                 daoTusuario.insert(this.tusuario, this.session);
                 this.transaction.commit();
-                showInformation("Usuario agregado.");                
+                showInformation("Usuario agregado.");
+                //RequestContext.getCurrentInstance().execute("limpiarFormulario('frmRegistrarUsuario')");
+                init();
                 return "/usuario/registrar";
             } catch (Exception error) {
                 throw new RuntimeException("Error al registrar usuario", error);
