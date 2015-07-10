@@ -23,7 +23,7 @@
                         <p:inputText id="txtNombre" label="Nombre" value="#{mbRUsuario.tusuario.nombre}" placeholder="juan" >
                             <f:validator validatorId="empty" />
                         </p:inputText>
-                        <p:message for="txtNombre"/>
+                        <p:message for="txtNombre" display="icon"/>
 
                         <p:outputLabel value="Apellido Paterno:" for="txtApellidoPaterno" />
                         <p:inputText id="txtApellidoPaterno" label="Apellido paterno" value="#{mbRUsuario.tusuario.apellidoPaterno}" placeholder="peres" >
@@ -43,12 +43,13 @@
                         
                         <p:outputLabel value="Correo Electronico:" for="txtCorreoElectronico" /> 
                         <p:inputText id="txtCorreoElectronico" label="Correo Electronico" value="#{mbRUsuario.tusuario.correoElectronico}" placeholder="e@correo.com">
+                            <f:validator validatorId="empty" />
                             <f:validator validatorId="email" />
                         </p:inputText>
                         <p:message for="txtCorreoElectronico"/>
                         
                         <p:outputLabel value="Fecha Nacimiento:" for="txtFechaNacimiento" />
-                        <p:calendar id="txtFechaNacimiento" label="Fecha Nacimiento" value="#{mbRUsuario.tusuario.fechaNacimiento}" showOn="button" pattern="dd/MM/yyyy" required="true" requiredMessage="Fecha de nacimiento es requerido"/>
+                        <p:calendar id="txtFechaNacimiento" label="Fecha Nacimiento" value="#{mbRUsuario.tusuario.fechaNacimiento}" showOn="button" pattern="dd/MM/yyyy" required="true" requiredMessage="Fecha de nacimiento es requerido" placeholder="dd/mm/yyyy"/>
                         <p:message for="txtFechaNacimiento"/>
                         
                         <p:outputLabel value="Sexo:"  for="radioSexo" />
@@ -71,7 +72,7 @@
                         <div></div>
                         
                         <div></div>
-                        <p:commandButton value="Registrar Usario" action="#{mbRUsuario.register()}" update="frmRegistrarUsuario" icon="ui-icon-check" />
+                        <p:commandButton value="Registrar Usario" actionListener="#{mbRUsuario.register()}" update="frmRegistrarUsuario" icon="ui-icon-check" />
                     </h:panelGrid>
                 </h:form>
 

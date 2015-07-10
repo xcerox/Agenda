@@ -6,7 +6,6 @@
 package Interface;
 
 import Pojos.Tusuario;
-import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Session;
 
@@ -14,14 +13,15 @@ import org.hibernate.Session;
  *
  * @author j.reyes
  */
-public interface crudTUsuario extends crud<Tusuario,String>{
+public interface crudTUsuario extends crud<Tusuario, String> {
 
     @Override
     public Tusuario getById(String id, Session session) throws RuntimeException;
+    
+    public Tusuario getByCorreoElectronico(String correoElectronico, Session session) throws RuntimeException;
 
     @Override
     public List<Tusuario> getAll(Session session) throws RuntimeException;
-
 
     @Override
     public boolean delete(Tusuario entity, Session session) throws RuntimeException;

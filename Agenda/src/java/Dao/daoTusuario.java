@@ -7,7 +7,9 @@ package Dao;
 
 import Pojos.Tusuario;
 import java.util.List;
+import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -60,6 +62,16 @@ public class daoTusuario implements Interface.crudTUsuario {
         } else {
             throw new RuntimeException("Session Cerrada");
         }
+    }
+
+    @Override
+    public Tusuario getByCorreoElectronico(String correoElectronico, Session session) throws RuntimeException {
+        if(session.isOpen()){
+             return (Tusuario) session.createCriteria(Tusuario.class)
+                     .add(Restrictions.eq("correoElectronico", correoElectronico))
+                     .uniqueResult();
+        }else
+            throw new RuntimeException("Session Cerrada");
     }
 
 }

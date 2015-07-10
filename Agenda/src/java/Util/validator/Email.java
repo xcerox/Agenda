@@ -31,10 +31,7 @@ public class Email implements Validator{
             label = htmlInputText.getId();
         else
             label = htmlInputText.getLabel();
-                
-        if(value.toString().trim().isEmpty())
-             throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", label + ": Es un campo Obligatorio"));
-        
+               
         Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
         Matcher matcher = pattern.matcher((CharSequence)value);
         

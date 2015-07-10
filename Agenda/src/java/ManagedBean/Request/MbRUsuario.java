@@ -32,7 +32,9 @@ public class MbRUsuario {
      */
     private Tusuario tusuario;
     private List<Tusuario> tusuarios;
+
     private String txtContraseniaRepita;
+
     private Session session;
     private Transaction transaction;
 
@@ -53,14 +55,14 @@ public class MbRUsuario {
     }
 
     private void showError(String text) {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", text));
-    }
-    
-    private void showInformation(String text){
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Información", text));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", text));
     }
 
-    private boolean checkUser() {
+    private void showInformation(String text) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Información:", text));
+    }
+
+    private boolean isSamePass() {
         boolean result = true;
         if (!this.tusuario.getContrasenia().equals(this.txtContraseniaRepita)) {
             showError("Las contraseñas no coinciden");
@@ -69,27 +71,48 @@ public class MbRUsuario {
         return result;
     }
 
-    public String register() throws RuntimeException {
-        if (checkUser()) {
-            try {
-                cleanConnection();
-                this.tusuario.setContrasenia(Encrypt.sha512(this.tusuario.getContrasenia()));
-                daoTusuario daoTusuario = new daoTusuario();
+    private boolean checkExistCorreoElectronico(daoTusuario daoTUsuario) {
+        boolean result = false;
+        if (daoTUsuario.getByCorreoElectronico(this.tusuario.getCorreoElectronico(), this.session) != null) {
+            result = true;
+        }
+        return result;
+    }
 
+    public void register() throws RuntimeException {
+        if (isSamePass()) {
+            cleanConnection();
+
+            try {
+                daoTusuario daoTusuario = new daoTusuario();
+                
                 this.session = HibernateUtil.getSessionFactory().openSession();
                 this.transaction = this.session.beginTransaction();
+                
+                if (!checkExistCorreoElectronico(daoTusuario)) {
+                    this.tusuario.setContrasenia(Encrypt.sha512(this.tusuario.getContrasenia()));
+                    daoTusuario.insert(this.tusuario, this.session);
+                    this.transaction.commit();
 
-                daoTusuario.insert(this.tusuario, this.session);
-                this.transaction.commit();
-                showInformation("Usuario agregado.");
-                //RequestContext.getCurrentInstance().execute("limpiarFormulario('frmRegistrarUsuario')");
-                init();
-                return "/usuario/registrar";
+                    showInformation("Usuario agregado.");
+                    init();
+                } else {
+                    daoTusuario = null;
+                    showError("Este correo ya ha sido usado para registrarse");
+                }
             } catch (Exception error) {
+                if (this.transaction != null) {
+                    this.transaction.rollback();
+                }
+
                 throw new RuntimeException("Error al registrar usuario", error);
+
+            } finally {
+                if (this.session != null) {
+                    this.session.close();
+                }
+
             }
-        } else {
-            return "/usuario/registrar";
         }
     }
 
