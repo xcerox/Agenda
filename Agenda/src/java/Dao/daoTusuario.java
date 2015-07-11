@@ -7,7 +7,6 @@ package Dao;
 
 import Pojos.Tusuario;
 import java.util.List;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
@@ -29,7 +28,8 @@ public class daoTusuario implements Interface.crudTUsuario {
     @Override
     public List<Tusuario> getAll(Session session) throws RuntimeException {
         if (session.isOpen()) {
-            return session.createCriteria(Tusuario.class).list();
+            return session.getNamedQuery("@HQL_GET_ALL_TUSUARIO")
+                    .list();
         } else {
             throw new RuntimeException("Session Cerrada");
         }
