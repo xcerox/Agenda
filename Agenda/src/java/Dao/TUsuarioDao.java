@@ -14,7 +14,7 @@ import org.hibernate.criterion.Restrictions;
  *
  * @author j.reyes
  */
-public class daoTusuario implements Interface.crudTUsuario {
+public class TUsuarioDao implements Interface.crudTUsuario {
 
     @Override
     public Tusuario getById(String id, Session session) throws RuntimeException {

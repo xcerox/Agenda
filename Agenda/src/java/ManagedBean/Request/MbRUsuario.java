@@ -10,7 +10,7 @@ import Pojos.Tusuario;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import Dao.DaoTUsuario;
+import Dao.TUsuarioDao;
 import org.hibernate.Session;
 import HibernateUtil.HibernateUtil;
 import java.util.List;
@@ -31,7 +31,7 @@ public class MbRUsuario {
      */
     private Tusuario usuario;
     private List<Tusuario> usuarios;
-    private DaoTUsuario daoUsuario;
+    private TUsuarioDao daoUsuario;
 
     private String txtContraseniaRepita;
 
@@ -71,7 +71,7 @@ public class MbRUsuario {
         return result;
     }
 
-    private boolean checkExistCorreoElectronico(DaoTUsuario daoTUsuario) {
+    private boolean checkExistCorreoElectronico(TUsuarioDao daoTUsuario) {
         boolean result = false;
         if (daoTUsuario.getByCorreoElectronico(this.usuario.getCorreoElectronico(), this.session) != null) {
             result = true;
@@ -84,7 +84,7 @@ public class MbRUsuario {
             cleanConnection();
 
             try {
-                daoUsuario = new DaoTUsuario();
+                daoUsuario = new TUsuarioDao();
 
                 this.session = HibernateUtil.getSessionFactory().openSession();
                 this.transaction = this.session.beginTransaction();
@@ -124,7 +124,7 @@ public class MbRUsuario {
 
         try {
             this.session = HibernateUtil.getSessionFactory().openSession();
-            this.daoUsuario = new DaoTUsuario();
+            this.daoUsuario = new TUsuarioDao();
 
             return this.daoUsuario.getAll(this.session);
         } catch (Exception error) {
