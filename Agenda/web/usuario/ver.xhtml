@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../layout/layout.xhtml">
+
+            <ui:define name="top">
+            </ui:define>
+
+            <ui:define name="content">
+                <h2>Lista de usuario</h2>
+                <hr />
+                <h:form id="frmListaUsuario">
+                    <p:growl sticky="false"  showDetail="true" />
+
+                    <p:dataTable id="tablaListaTUsuario" var="item" value="#{mbRUsuario.all}"  paginator="true" rows="10" >
+                        <f:facet name="header" >
+                            Usuarios
+                        </f:facet>
+                        <p:column headerText="Nombre">
+                            <h:outputText value="#{item.nombre}" />
+                        </p:column>
+                        <p:column headerText="Apellido paterno">
+                            <h:outputText value="#{item.apellidoPaterno}" />
+                        </p:column>
+                        <p:column headerText="Apellido materno" >
+                            <h:outputText value="#{item.apellidoMaterno}" />
+                        </p:column>
+                        <p:column headerText="Correo Electronico" >
+                            <h:outputText value="#{item.correoElectronico}" />
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+
+            <ui:define name="bottom">
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

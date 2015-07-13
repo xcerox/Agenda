@@ -10,14 +10,13 @@ import Pojos.Tusuario;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import Dao.daoTusuario;
+import Dao.DaoTUsuario;
 import org.hibernate.Session;
 import HibernateUtil.HibernateUtil;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.hibernate.Transaction;
-import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -30,8 +29,9 @@ public class MbRUsuario {
     /**
      * Creates a new instance of MbRUsuario
      */
-    private Tusuario tusuario;
-    private List<Tusuario> tusuarios;
+    private Tusuario usuario;
+    private List<Tusuario> usuarios;
+    private DaoTUsuario daoUsuario;
 
     private String txtContraseniaRepita;
 
@@ -43,9 +43,9 @@ public class MbRUsuario {
 
     @PostConstruct
     private void init() {
-        this.tusuario = new Tusuario();
-        this.tusuario.setCodigoUsuario("");
-        this.tusuario.setSexo(true);
+        this.usuario = new Tusuario();
+        this.usuario.setCodigoUsuario("");
+        this.usuario.setSexo(true);
         this.txtContraseniaRepita = "";
     }
 
@@ -64,16 +64,16 @@ public class MbRUsuario {
 
     private boolean isSamePass() {
         boolean result = true;
-        if (!this.tusuario.getContrasenia().equals(this.txtContraseniaRepita)) {
+        if (!this.usuario.getContrasenia().equals(this.txtContraseniaRepita)) {
             showError("Las contraseñas no coinciden");
             result = false;
         }
         return result;
     }
 
-    private boolean checkExistCorreoElectronico(daoTusuario daoTUsuario) {
+    private boolean checkExistCorreoElectronico(DaoTUsuario daoTUsuario) {
         boolean result = false;
-        if (daoTUsuario.getByCorreoElectronico(this.tusuario.getCorreoElectronico(), this.session) != null) {
+        if (daoTUsuario.getByCorreoElectronico(this.usuario.getCorreoElectronico(), this.session) != null) {
             result = true;
         }
         return result;
@@ -84,20 +84,19 @@ public class MbRUsuario {
             cleanConnection();
 
             try {
-                daoTusuario daoTusuario = new daoTusuario();
-                
+                daoUsuario = new DaoTUsuario();
+
                 this.session = HibernateUtil.getSessionFactory().openSession();
                 this.transaction = this.session.beginTransaction();
-                
-                if (!checkExistCorreoElectronico(daoTusuario)) {
-                    this.tusuario.setContrasenia(Encrypt.sha512(this.tusuario.getContrasenia()));
-                    daoTusuario.insert(this.tusuario, this.session);
+
+                if (!checkExistCorreoElectronico(this.daoUsuario)) {
+                    this.usuario.setContrasenia(Encrypt.sha512(this.usuario.getContrasenia()));
+                    this.daoUsuario.insert(this.usuario, this.session);
                     this.transaction.commit();
 
                     showInformation("Usuario agregado.");
                     init();
                 } else {
-                    daoTusuario = null;
                     showError("Este correo ya ha sido usado para registrarse");
                 }
             } catch (Exception error) {
@@ -112,16 +111,41 @@ public class MbRUsuario {
                     this.session.close();
                 }
 
+                if (this.daoUsuario != null) {
+                    daoUsuario = null;
+                }
+
             }
         }
     }
 
-    public Tusuario getTusuario() {
-        return tusuario;
+    public List<Tusuario> getAll() {
+        cleanConnection();
+
+        try {
+            this.session = HibernateUtil.getSessionFactory().openSession();
+            this.daoUsuario = new DaoTUsuario();
+
+            return this.daoUsuario.getAll(this.session);
+        } catch (Exception error) {
+            throw new RuntimeException("Error al buscar los datos.", error);
+        } finally {
+            if (this.session != null) {
+                this.session.close();
+            }
+
+            if (this.daoUsuario != null) {
+                daoUsuario = null;
+            }
+        }
     }
 
-    public void setTusuario(Tusuario tusuario) {
-        this.tusuario = tusuario;
+    public Tusuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Tusuario tusuario) {
+        this.usuario = tusuario;
     }
 
     public String getTxtContraseniaRepita() {
