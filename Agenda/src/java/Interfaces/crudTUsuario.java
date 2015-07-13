@@ -5,7 +5,7 @@
  */
 package Interface;
 
-import Pojos.Tusuario;
+import Models.Tusuario;
 import java.util.List;
 import org.hibernate.Session;
 

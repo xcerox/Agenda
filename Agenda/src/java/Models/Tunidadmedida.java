@@ -1,4 +1,4 @@
-package Pojos;
+package Models;
 // Generated Jul 8, 2015 1:43:35 PM by Hibernate Tools 4.3.1
 
 import java.util.Date;

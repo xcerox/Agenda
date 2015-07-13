@@ -6,7 +6,7 @@
 package ManagedBean.Request;
 
 import Util.seguridad.Encrypt;
-import Pojos.Tusuario;
+import Models.Tusuario;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -31,7 +31,7 @@ public class MbRUsuario {
      */
     private Tusuario usuario;
     private List<Tusuario> usuarios;
-    private TUsuarioDao daoUsuario;
+    private TUsuarioDao usuarioDao;
 
     private String txtContraseniaRepita;
 
@@ -84,14 +84,14 @@ public class MbRUsuario {
             cleanConnection();
 
             try {
-                daoUsuario = new TUsuarioDao();
+                usuarioDao = new TUsuarioDao();
 
                 this.session = HibernateUtil.getSessionFactory().openSession();
                 this.transaction = this.session.beginTransaction();
 
-                if (!checkExistCorreoElectronico(this.daoUsuario)) {
+                if (!checkExistCorreoElectronico(this.usuarioDao)) {
                     this.usuario.setContrasenia(Encrypt.sha512(this.usuario.getContrasenia()));
-                    this.daoUsuario.insert(this.usuario, this.session);
+                    this.usuarioDao.insert(this.usuario, this.session);
                     this.transaction.commit();
 
                     showInformation("Usuario agregado.");
@@ -111,8 +111,8 @@ public class MbRUsuario {
                     this.session.close();
                 }
 
-                if (this.daoUsuario != null) {
-                    daoUsuario = null;
+                if (this.usuarioDao != null) {
+                    usuarioDao = null;
                 }
 
             }
@@ -124,9 +124,9 @@ public class MbRUsuario {
 
         try {
             this.session = HibernateUtil.getSessionFactory().openSession();
-            this.daoUsuario = new TUsuarioDao();
+            this.usuarioDao = new TUsuarioDao();
 
-            return this.daoUsuario.getAll(this.session);
+            return this.usuarioDao.getAll(this.session);
         } catch (Exception error) {
             throw new RuntimeException("Error al buscar los datos.", error);
         } finally {
@@ -134,8 +134,8 @@ public class MbRUsuario {
                 this.session.close();
             }
 
-            if (this.daoUsuario != null) {
-                daoUsuario = null;
+            if (this.usuarioDao != null) {
+                usuarioDao = null;
             }
         }
     }

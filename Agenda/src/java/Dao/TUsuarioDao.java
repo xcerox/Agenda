@@ -5,7 +5,7 @@
  */
 package Dao;
 
-import Pojos.Tusuario;
+import Models.Tusuario;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
