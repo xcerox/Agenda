@@ -10,13 +10,13 @@
         <property name="hibernate.show_sql">true</property>
 
         <property name="hibernate.current_session_context_class">thread</property> 
-        <mapping class="Pojos.Tusuarioamigotelefono"/>
-        <mapping class="Pojos.Tunidadmedida"/>
-        <mapping class="Pojos.Tactividadcomentario"/>
-        <mapping class="Pojos.Tusuario"/>
-        <mapping class="Pojos.Tactividadpresupuesto"/>
-        <mapping class="Pojos.Tusuarioamigo"/>
-        <mapping class="Pojos.Tactividadparticipante"/>
-        <mapping class="Pojos.Tactividad"/>
+        <mapping class="Models.Tusuarioamigotelefono"/>
+        <mapping class="Models.Tunidadmedida"/>
+        <mapping class="Models.Tactividadcomentario"/>
+        <mapping class="Models.Tusuario"/>
+        <mapping class="Models.Tactividadpresupuesto"/>
+        <mapping class="Models.Tusuarioamigo"/>
+        <mapping class="Models.Tactividadparticipante"/>
+        <mapping class="Models.Tactividad"/>
     </session-factory>
 </hibernate-configuration>

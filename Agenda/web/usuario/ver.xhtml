@@ -19,7 +19,10 @@
                 <h:form id="frmListaUsuario">
                     <p:growl sticky="false"  showDetail="true" />
 
-                    <p:dataTable id="tablaListaTUsuario" var="item" value="#{mbRUsuario.all}"  paginator="true" rows="10" >
+                    <p:dataTable id="tablaListaTUsuario" var="item" value="#{mbRUsuario.all}"  paginator="true" rows="10" selection="#{mbRUsuario.usuario}" 
+                                 selectionMode="single" rowKey="#{item.codigoUsuario}" lazy="true"> 
+
+                        <p:ajax event="rowSelect" update=":frmListaUsuario:panelDetalleUsusario" oncomplete="PF('dialogoDetalleUsuario').show()" />
                         <f:facet name="header" >
                             Usuarios
                         </f:facet>
@@ -36,6 +39,35 @@
                             <h:outputText value="#{item.correoElectronico}" />
                         </p:column>
                     </p:dataTable>
+
+                    <p:dialog header="Información de usuario: #{mbRUsuario.usuario.codigoUsuario} "  widgetVar="dialogoDetalleUsuario" modal="true" resizable="false" showEffect="explode" hideEffect="explode" >
+                        <p:outputPanel id="panelDetalleUsusario" >
+                            <p:panelGrid columns="2" columnClasses="label,value" > 
+                                <p:outputLabel value="Nombre:" for="txtNombre"/>
+                                <h:outputText id="txtNombre" value="#{mbRUsuario.usuario.nombre}" />
+
+                                <p:outputLabel value="Apellido Paterno:" for="txtApellidoPaterno"/>
+                                <h:outputText id="txtApellidoPaterno" value="#{mbRUsuario.usuario.apellidoPaterno}" />
+
+                                <p:outputLabel value="Apellido Materno:" for="txtApellidoMaterno"/>
+                                <h:outputText id="txtApellidoMaterno" value="#{mbRUsuario.usuario.apellidoMaterno}" />
+
+                                <p:outputLabel value="Telefono:" for="txtTelefono"/>
+                                <h:outputText id="txtTelefono" value="#{mbRUsuario.usuario.telefono}" />
+
+                                <p:outputLabel value="Correo Electronico:" for="txtCorreoElectronico"/>
+                                <h:outputText id="txtCorreoElectronico" value="#{mbRUsuario.usuario.correoElectronico}" />
+
+                                <p:outputLabel value="Fecha Nacimiento:" for="txtFechaNacimiento"/>
+                                <h:outputText id="txtFechaNacimiento" value="#{mbRUsuario.usuario.fechaNacimiento}" />
+                                
+                                <p:outputLabel value="Sexo:" for="txtSexo"/>
+                                <h:outputText id="txtSexo" value="#{mbRUsuario.usuario.sexo? 'Masculino':'Femenino'}" />
+
+                            </p:panelGrid>
+                        </p:outputPanel>
+                    </p:dialog>
+
                 </h:form>
             </ui:define>
 
