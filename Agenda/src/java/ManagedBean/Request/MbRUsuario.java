@@ -30,6 +30,7 @@ public class MbRUsuario {
      * Creates a new instance of MbRUsuario
      */
     private Tusuario usuario;
+
     private List<Tusuario> usuarios;
     private TUsuarioDao usuarioDao;
 
@@ -154,6 +155,14 @@ public class MbRUsuario {
 
     public void setTxtContraseniaRepita(String txtContraseniaRepita) {
         this.txtContraseniaRepita = txtContraseniaRepita;
+    }
+
+    public List<Tusuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(List<Tusuario> usuarios) {
+        this.usuarios = usuarios;
     }
 
 }
