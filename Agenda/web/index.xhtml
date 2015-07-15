@@ -1,7 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
 
     <body>
 
@@ -11,12 +13,32 @@
             </ui:define>
 
             <ui:define name="content">
-                <h2>Bienvenido a la Agenda </h2>
+
+                <h:panelGroup rendered="#{not mbSsession.inside}" >
+                    <h2>Inicio de sesión</h2>
+                    <hr />
+                    <h:form id="frmLogin" >
+                        <p:growl id="msgGeneral" autoUpdate="true" showDetail="true" sticky="false" />
+                        <h:panelGrid columns="2"> 
+                            <p:outputLabel value="Correo Electronico:" for="txtCorreoElectronico" />
+                            <p:inputText id="txtCorreoElectronico" value="#{mbSsession.correoElectronico}" size="50" />
+
+                            <p:outputLabel value="Contraseña:" for="txtcontrania" />
+                            <p:password id="txtcontrania" value="#{mbSsession.contrasenia}" size="50" />
+
+                            <h:panelGroup></h:panelGroup>
+                            <p:commandButton value="Ingresar" id="btnIngresar" update=":frmLogin" action="#{mbSsession.login()}" />
+                        </h:panelGrid>
+                    </h:form>
+                </h:panelGroup>
+                <h:panelGroup rendered="#{mbSsession.inside}" >
+                    <h2> Bienvendido al sistema de agenda.</h2>
+                </h:panelGroup>
             </ui:define>
-            
+
             <ui:define name="bottom">
             </ui:define>
-            
+
         </ui:composition>
     </body>
 </html>

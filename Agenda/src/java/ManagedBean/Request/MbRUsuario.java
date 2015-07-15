@@ -8,13 +8,13 @@ package ManagedBean.Request;
 import Util.seguridad.Encrypt;
 import Models.Tusuario;
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import Dao.TUsuarioDao;
 import org.hibernate.Session;
 import HibernateUtil.HibernateUtil;
 import java.util.List;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import org.hibernate.Transaction;
 
@@ -22,8 +22,8 @@ import org.hibernate.Transaction;
  *
  * @author j.reyes
  */
-@ManagedBean
 @RequestScoped
+@ManagedBean
 public class MbRUsuario {
 
     /**
