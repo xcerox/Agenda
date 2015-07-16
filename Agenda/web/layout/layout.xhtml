@@ -25,20 +25,20 @@
                             <p:menuitem value="Salir"  action="#{mbSsession.cerrarSesion()}" icon="ui-icon-power"/>
                         </p:menuButton>
                     </div>
-
-
-                    <p:megaMenu>
-                        <p:menuitem value="Inicio" outcome="/index" icon="ui-icon-home" />
-                        <p:submenu label="Usuario" icon="ui-icon-person">
-                            <p:column>
-                                <p:submenu label="Crud">
-                                    <p:menuitem value="Registrar" outcome="/usuario/registrar" icon="ui-icon-plus"/>
-                                    <p:menuitem value="Ver" outcome="/usuario/ver" icon="ui-icon-document"/>
-                                </p:submenu>
-                            </p:column>
-                        </p:submenu>
-                    </p:megaMenu> 
                 </h:panelGroup>
+
+                <p:megaMenu>
+                    <p:menuitem value="Inicio" outcome="/index" icon="ui-icon-home" />
+                    <p:submenu label="Usuario" icon="ui-icon-person">
+                        <p:column>
+                            <p:submenu label="Crud">
+                                <p:menuitem value="Registrar" outcome="/usuario/registrar" icon="ui-icon-plus"/>
+                                <p:menuitem value="Ver" outcome="/usuario/ver" icon="ui-icon-document"/>
+                            </p:submenu>
+                        </p:column>
+                    </p:submenu>
+                </p:megaMenu> 
+
                 <ui:insert name="top">Top</ui:insert>
 
             </h:form>

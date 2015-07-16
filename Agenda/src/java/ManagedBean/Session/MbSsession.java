@@ -14,6 +14,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import org.hibernate.Session;
 
 /**
@@ -33,7 +34,9 @@ public class MbSsession {
     private Session session;
 
     public MbSsession() {
-    }
+        HttpSession userSession = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        userSession.setMaxInactiveInterval(30);
+    }   
 
     @PostConstruct
     public void init() {

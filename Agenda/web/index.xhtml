@@ -13,27 +13,21 @@
             </ui:define>
 
             <ui:define name="content">
+                <h2>Inicio de sesión</h2>
+                <hr />
+                <h:form id="frmLogin" >
+                    <p:growl id="msgGeneral" autoUpdate="true" showDetail="true" sticky="false" />
+                    <h:panelGrid columns="2"> 
+                        <p:outputLabel value="Correo Electronico:" for="txtCorreoElectronico" />
+                        <p:inputText id="txtCorreoElectronico" value="#{mbSsession.correoElectronico}" size="50" />
 
-                <h:panelGroup rendered="#{not mbSsession.inside}" >
-                    <h2>Inicio de sesión</h2>
-                    <hr />
-                    <h:form id="frmLogin" >
-                        <p:growl id="msgGeneral" autoUpdate="true" showDetail="true" sticky="false" />
-                        <h:panelGrid columns="2"> 
-                            <p:outputLabel value="Correo Electronico:" for="txtCorreoElectronico" />
-                            <p:inputText id="txtCorreoElectronico" value="#{mbSsession.correoElectronico}" size="50" />
+                        <p:outputLabel value="Contraseña:" for="txtcontrania" />
+                        <p:password id="txtcontrania" value="#{mbSsession.contrasenia}" size="50" />
 
-                            <p:outputLabel value="Contraseña:" for="txtcontrania" />
-                            <p:password id="txtcontrania" value="#{mbSsession.contrasenia}" size="50" />
-
-                            <h:panelGroup></h:panelGroup>
-                            <p:commandButton value="Ingresar" id="btnIngresar" update=":frmLogin" action="#{mbSsession.login()}" />
-                        </h:panelGrid>
-                    </h:form>
-                </h:panelGroup>
-                <h:panelGroup rendered="#{mbSsession.inside}" >
-                    <h2> Bienvendido al sistema de agenda.</h2>
-                </h:panelGroup>
+                        <h:panelGroup></h:panelGroup>
+                        <p:commandButton value="Ingresar" id="btnIngresar" update=":frmLogin" action="#{mbSsession.login()}" />
+                    </h:panelGrid>
+                </h:form>
             </ui:define>
 
             <ui:define name="bottom">
