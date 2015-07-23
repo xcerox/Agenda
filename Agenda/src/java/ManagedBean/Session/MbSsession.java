@@ -5,10 +5,11 @@
  */
 package ManagedBean.Session;
 
-import Dao.TUsuarioDao;
-import HibernateUtil.HibernateUtil;
+import Dao.UsuarioDao;
+import Class.Util.Persistence.PersistenceUtil;
 import Models.Tusuario;
-import Util.seguridad.Encrypt;
+import Class.Util.Security.EncryptUtil;
+import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -23,19 +24,21 @@ import org.hibernate.Session;
  */
 @ManagedBean
 @SessionScoped
-public class MbSsession {
+public class MbSsession implements Serializable{
 
     /**
      * Creates a new instance of MbSsession
      */
     private String correoElectronico;
     private String contrasenia;
+    
     private boolean inside;
+    private Tusuario usuario;
     private Session session;
 
     public MbSsession() {
         HttpSession userSession = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-        userSession.setMaxInactiveInterval(30);
+        userSession.setMaxInactiveInterval(30*60);
     }   
 
     @PostConstruct
@@ -43,6 +46,7 @@ public class MbSsession {
         this.correoElectronico = "";
         this.contrasenia = "";
         this.inside = false;
+        this.usuario = null;
     }
 
     public String getCorreoElectronico() {
@@ -64,17 +68,17 @@ public class MbSsession {
     public String login() {
         this.session = null;
         String path = "/index";
-        TUsuarioDao usuarioDao = null;
+        UsuarioDao usuarioDao = null;
 
         try {
-            usuarioDao = new TUsuarioDao();
+            usuarioDao = new UsuarioDao();
 
-            this.session = HibernateUtil.getSessionFactory().openSession();
+            this.session = PersistenceUtil.getSessionFactory().openSession();
 
-            Tusuario usuario = usuarioDao.getByCorreoElectronico(this.correoElectronico, session);
+            this.usuario = usuarioDao.getByCorreoElectronico(this.correoElectronico, session);
 
-            if (usuario != null) {
-                if (usuario.getContrasenia().equals(Encrypt.sha512(this.contrasenia))) {
+            if (this.usuario != null) {
+                if (this.usuario.getContrasenia().equals(EncryptUtil.sha512(this.contrasenia))) {
                     path = "/usuario/ver";
                     inside = true;
                     showInformation("ingreso el usuario");
@@ -100,6 +104,9 @@ public class MbSsession {
         }
     }
 
+    
+    
+    
     public String cerrarSesion() {
         init();
         return "/index";
@@ -119,5 +126,13 @@ public class MbSsession {
 
     public void setInside(boolean inside) {
         this.inside = inside;
+    }
+
+    public Tusuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Tusuario usuario) {
+        this.usuario = usuario;
     }
 }

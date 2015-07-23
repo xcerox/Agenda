@@ -14,7 +14,7 @@ import org.hibernate.Session;
  * @author j.reyes
  * @param <T>
  */
-public interface crud<T,Id> {
+public interface CrudBase<T,Id> {
     public Id insert(T entity, Session session)throws RuntimeException;
     public boolean update(T entity, Session session)throws RuntimeException;
     public boolean delete(T entity, Session session)throws RuntimeException;

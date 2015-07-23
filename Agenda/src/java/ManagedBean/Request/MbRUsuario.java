@@ -5,17 +5,19 @@
  */
 package ManagedBean.Request;
 
-import Util.seguridad.Encrypt;
+import Class.Util.Security.EncryptUtil;
 import Models.Tusuario;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.RequestScoped;
-import Dao.TUsuarioDao;
+import Dao.UsuarioDao;
 import org.hibernate.Session;
-import HibernateUtil.HibernateUtil;
+import Class.Util.Persistence.PersistenceUtil;
+import ManagedBean.Session.MbSsession;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import org.hibernate.Transaction;
 
 /**
@@ -32,12 +34,14 @@ public class MbRUsuario {
     private Tusuario usuario;
 
     private List<Tusuario> usuarios;
-    private TUsuarioDao usuarioDao;
+    private UsuarioDao usuarioDao;
 
     private String txtContraseniaRepita;
 
     private Session session;
     private Transaction transaction;
+
+    private boolean viewMode;
 
     public MbRUsuario() {
     }
@@ -48,6 +52,7 @@ public class MbRUsuario {
         this.usuario.setCodigoUsuario("");
         this.usuario.setSexo(true);
         this.txtContraseniaRepita = "";
+        this.viewMode = true;
     }
 
     private void cleanConnection() {
@@ -72,7 +77,7 @@ public class MbRUsuario {
         return result;
     }
 
-    private boolean checkExistCorreoElectronico(TUsuarioDao daoTUsuario) {
+    private boolean checkExistCorreoElectronico(UsuarioDao daoTUsuario) {
         boolean result = false;
         if (daoTUsuario.getByCorreoElectronico(this.usuario.getCorreoElectronico(), this.session) != null) {
             result = true;
@@ -85,13 +90,13 @@ public class MbRUsuario {
             cleanConnection();
 
             try {
-                usuarioDao = new TUsuarioDao();
+                usuarioDao = new UsuarioDao();
 
-                this.session = HibernateUtil.getSessionFactory().openSession();
+                this.session = PersistenceUtil.getSessionFactory().openSession();
                 this.transaction = this.session.beginTransaction();
 
                 if (!checkExistCorreoElectronico(this.usuarioDao)) {
-                    this.usuario.setContrasenia(Encrypt.sha512(this.usuario.getContrasenia()));
+                    this.usuario.setContrasenia(EncryptUtil.sha512(this.usuario.getContrasenia()));
                     this.usuarioDao.insert(this.usuario, this.session);
                     this.transaction.commit();
 
@@ -124,8 +129,8 @@ public class MbRUsuario {
         cleanConnection();
 
         try {
-            this.session = HibernateUtil.getSessionFactory().openSession();
-            this.usuarioDao = new TUsuarioDao();
+            this.session = PersistenceUtil.getSessionFactory().openSession();
+            this.usuarioDao = new UsuarioDao();
 
             return this.usuarioDao.getAll(this.session);
         } catch (Exception error) {
@@ -138,6 +143,39 @@ public class MbRUsuario {
             if (this.usuarioDao != null) {
                 usuarioDao = null;
             }
+        }
+    }
+
+    public void updateUser(Tusuario tusuario) {
+        cleanConnection();
+
+        try {
+            this.session = PersistenceUtil.getSessionFactory().openSession();
+            this.usuarioDao = new UsuarioDao();
+            this.usuarioDao.update(tusuario, this.session);
+            this.viewMode = true;
+            showInformation("Se edito Correctamente");
+        } catch (Exception error) {
+            throw new RuntimeException("Error al buscar los datos.", error);
+        } finally {
+            if (this.session != null) {
+                this.session.close();
+            }
+
+            if (this.usuarioDao != null) {
+                usuarioDao = null;
+            }
+        }
+    }
+
+    public void loadMyUser() throws RuntimeException {
+        HttpSession httpSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        MbSsession mbSsession = (MbSsession) ((httpSession != null) ? httpSession.getAttribute("mbSsession") : null);
+
+        if (mbSsession != null) {
+            this.usuario = mbSsession.getUsuario();
+        } else {
+            throw new RuntimeException("La session no existe");
         }
     }
 
@@ -163,6 +201,14 @@ public class MbRUsuario {
 
     public void setUsuarios(List<Tusuario> usuarios) {
         this.usuarios = usuarios;
+    }
+
+    public boolean isViewMode() {
+        return viewMode;
+    }
+
+    public void setViewMode(boolean viewMode) {
+        this.viewMode = viewMode;
     }
 
 }

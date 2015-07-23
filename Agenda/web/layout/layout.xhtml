@@ -21,7 +21,7 @@
             <h:form id="frmMain">
                 <h:panelGroup rendered="#{mbSsession.inside}" >
                     <div id="divSessionUsuario">
-                        <p:menuButton value="#{mbSsession.correoElectronico}">
+                        <p:menuButton value="#{mbSsession.usuario.nombre}">
                             <p:menuitem value="Salir"  action="#{mbSsession.cerrarSesion()}" icon="ui-icon-power"/>
                         </p:menuButton>
                     </div>
@@ -34,6 +34,7 @@
                             <p:submenu label="Crud">
                                 <p:menuitem value="Registrar" outcome="/usuario/registrar" icon="ui-icon-plus"/>
                                 <p:menuitem value="Ver" outcome="/usuario/ver" icon="ui-icon-document"/>
+                                <p:menuitem value="Mi Informacion" outcome="/usuario/info" icon="ui-icon-document"/>
                             </p:submenu>
                         </p:column>
                     </p:submenu>

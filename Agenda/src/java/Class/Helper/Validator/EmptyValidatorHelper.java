@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Util.validator;
+package Class.Helper.Validator;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -19,7 +19,7 @@ import javax.faces.validator.ValidatorException;
  */
 @FacesValidator("empty")
 
-public class Empty implements Validator{
+public class EmptyValidatorHelper implements Validator{
 
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {

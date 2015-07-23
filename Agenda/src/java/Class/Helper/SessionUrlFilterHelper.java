@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Util;
+package Class.Helper;
 
 import java.io.IOException;
 import javax.servlet.Filter;
@@ -23,34 +23,50 @@ import ManagedBean.Session.MbSsession;
  * @author j.reyes
  */
 @WebFilter("*.xhtml")
-public class SessionUrlFilter implements Filter {
-    
+public class SessionUrlFilterHelper implements Filter {
+
     FilterConfig config;
-    
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         this.config = filterConfig;
     }
-    
+
+    private boolean existInUrlFree(final String url) {
+        boolean isExist = false;
+        
+        String[] urlsFree = new String[]{
+            "/faces/index.xhtml",
+            "faces/usuario/registrar.xhtml"
+        };
+        
+        for (String urlfree : urlsFree) 
+            if(url.contains(urlfree)){
+                isExist = true;
+                break;
+            }
+        
+        return isExist;
+    }
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
-        
+
         HttpSession httpSession = httpRequest.getSession(true);
         MbSsession mbSsession = (MbSsession) ((httpSession != null) ? httpSession.getAttribute("mbSsession") : null);
-        
-        String url = httpRequest.getRequestURI();
-        
-        if ((mbSsession != null && mbSsession.isInside()) || url.contains("index.xhtml")) 
+
+        if ((mbSsession != null && mbSsession.isInside()) || existInUrlFree(httpRequest.getRequestURI())) {
             chain.doFilter(request, response);
-         else 
-            httpResponse.sendRedirect(httpRequest.getContextPath() + "/faces/index.xhtml");   
+        } else {
+            httpResponse.sendRedirect(httpRequest.getContextPath() + "/faces/index.xhtml");
+        }
     }
-    
+
     @Override
     public void destroy() {
         this.config = null;
     }
-    
+
 }

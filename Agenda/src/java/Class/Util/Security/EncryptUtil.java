@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Util.seguridad;
+package Class.Util.Security;
 
 import java.security.MessageDigest;
 
@@ -11,7 +11,7 @@ import java.security.MessageDigest;
  *
  * @author j.reyes
  */
-public class Encrypt {
+public class EncryptUtil {
     public static String sha512(String text) throws RuntimeException{
         StringBuilder builder =  new StringBuilder();
         

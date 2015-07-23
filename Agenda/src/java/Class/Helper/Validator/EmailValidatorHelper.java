@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Util.validator;
+package Class.Helper.Validator;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,7 +20,7 @@ import javax.faces.validator.ValidatorException;
  * @author j.reyes
  */
 @FacesValidator("email")
-public class Email implements Validator{
+public class EmailValidatorHelper implements Validator{
 
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {

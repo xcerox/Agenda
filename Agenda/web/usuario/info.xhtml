@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+        <ui:composition template="./../layout/layout.xhtml">
+
+            <ui:define name="top">
+            </ui:define>
+
+            <ui:define name="content">
+                <h2> Mi Informacion </h2>
+                <hr />
+                <h:form id="frmMiInformacion">
+                    <p:growl id="mensajeGeneral" showDetail="true" sticky="false" />
+
+                    <h:panelGrid columns="3" id="panelGeneral">
+
+                        <p:outputLabel value="Nombre:" for="txtNombre" />
+                        <p:inputText id="txtNombre" label="Nombre" value="#{mbRUsuario.usuario.nombre}" placeholder="juan" disabled="#{mbRUsuario.viewMode}" >
+                            <f:validator validatorId="empty" />
+                        </p:inputText>
+                        <p:message for="txtNombre" display="icon"/>
+
+                        <p:outputLabel value="Apellido Paterno:" for="txtApellidoPaterno" />
+                        <p:inputText id="txtApellidoPaterno" label="Apellido paterno" value="#{mbRUsuario.usuario.apellidoPaterno}" placeholder="peres" disabled="#{mbRUsuario.viewMode}">
+                            <f:validator validatorId="empty" />
+                        </p:inputText>
+                        <p:message for="txtApellidoPaterno"/>
+
+                        <p:outputLabel value="Apellido Materno:" for="txtApellidoMaterno" />
+                        <p:inputText id="txtApellidoMaterno" label="Apellido paterno" value="#{mbRUsuario.usuario.apellidoMaterno}" placeholder="otro apellido" disabled="#{mbRUsuario.viewMode}" >
+                            <f:validator validatorId="empty" />
+                        </p:inputText>
+                        <p:message for="txtApellidoMaterno"/>
+
+                        <p:outputLabel value="Telefono:" for="txtTelefono" /> 
+                        <p:inputText id="txtTelefono" label="Telefono" value="#{mbRUsuario.usuario.telefono}" placeholder="1111111111" disabled="#{mbRUsuario.viewMode}"/>
+                        <div></div>
+
+                        <p:outputLabel value="Correo Electronico:" for="txtCorreoElectronico" /> 
+                        <p:inputText id="txtCorreoElectronico" label="Correo Electronico" value="#{mbRUsuario.usuario.correoElectronico}" placeholder="e@correo.com" disabled="#{mbRUsuario.viewMode}">
+                            <f:validator validatorId="empty" />
+                            <f:validator validatorId="email" />
+                        </p:inputText>
+                        <p:message for="txtCorreoElectronico"/>
+
+                        <p:outputLabel value="Fecha Nacimiento:" for="txtFechaNacimiento" />
+                        <p:calendar id="txtFechaNacimiento" label="Fecha Nacimiento" value="#{mbRUsuario.usuario.fechaNacimiento}" showOn="button" pattern="dd/MM/yyyy" required="true" requiredMessage="Fecha de nacimiento es requerido" placeholder="dd/mm/yyyy" disabled="#{mbRUsuario.viewMode}"/>
+                        <p:message for="txtFechaNacimiento"/>
+
+                        <p:outputLabel value="Sexo:"  for="radioSexo" />
+                        <p:selectOneRadio id="radioSexo" label="Sexo" value="#{mbRUsuario.usuario.sexo}" disabled="#{mbRUsuario.viewMode}" >
+                            <f:selectItem  itemLabel="Masculino" itemValue="true"/>
+                            <f:selectItem  itemLabel="Femenino" itemValue="false"/>
+                        </p:selectOneRadio>
+                        <h:panelGroup></h:panelGroup>
+
+                        <h:panelGroup></h:panelGroup>
+                        <h:panelGroup rendered="#{mbRUsuario.viewMode}" >
+                            <p:commandButton value="Editar" actionListener="#{mbRUsuario.setViewMode(false)}" update="frmMiInformacion" icon="ui-icon-check" />
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{not mbRUsuario.viewMode}" >
+                            <p:commandButton value="Guardar" actionListener="#{mbRUsuario.loadMyUser}" update="frmMiInformacion" icon="ui-icon-check" />
+                        </h:panelGroup>
+                    </h:panelGrid>
+
+                </h:form>
+
+            </ui:define>
+
+            <ui:define name="bottom">
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

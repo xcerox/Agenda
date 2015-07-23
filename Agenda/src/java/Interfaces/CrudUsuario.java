@@ -13,7 +13,7 @@ import org.hibernate.Session;
  *
  * @author j.reyes
  */
-public interface crudTUsuario extends crud<Tusuario, String> {
+public interface CrudUsuario extends CrudBase<Tusuario, String> {
 
     @Override
     public Tusuario getById(String id, Session session) throws RuntimeException;
