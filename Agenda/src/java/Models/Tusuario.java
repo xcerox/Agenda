@@ -20,7 +20,8 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "tusuario", catalog = "dbappagendajava")
-@NamedQueries({@NamedQuery(name = "@HQL.USUARIO.GET.ALL", query = "from Tusuario")})
+@NamedQueries({
+    @NamedQuery(name = "@HQL.USUARIO.GET.ALL", query = "from Tusuario")})
 public class Tusuario implements java.io.Serializable {
 
     @Id
@@ -57,7 +58,7 @@ public class Tusuario implements java.io.Serializable {
     private Date fechaModificacion;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "tusuario")
     private Set<Tusuarioamigo> tusuarioamigos = new HashSet(0);
-   
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "tusuario")
     private Set<Tactividad> tactividads = new HashSet(0);
 
@@ -198,4 +199,34 @@ public class Tusuario implements java.io.Serializable {
         this.tactividads = tactividads;
     }
 
+    public boolean equals(Tusuario other) {
+        if (this == other) {
+            return true;
+        }
+
+        return this.nombre.equals(other.nombre)
+                && this.apellidoPaterno.equals(other.apellidoPaterno)
+                && this.apellidoMaterno.equals(other.apellidoMaterno)
+                && this.codigoUsuario.equals(other.codigoUsuario)
+                && this.telefono.equals(other.telefono)
+                && this.correoElectronico.equals(other.correoElectronico)
+                && this.sexo == other.sexo
+                && this.fechaNacimiento.equals(other.fechaNacimiento);
+    }
+    
+    public void copy(Tusuario other){
+        other.setNombre(this.nombre);
+        other.setApellidoPaterno(this.apellidoPaterno);
+        other.setApellidoMaterno(this.apellidoMaterno);
+        other.setCodigoUsuario(this.codigoUsuario);
+        other.setContrasenia(this.contrasenia);
+        other.setCorreoElectronico(this.correoElectronico);
+        other.setFechaModificacion(this.fechaModificacion);
+        other.setFechaNacimiento(this.fechaNacimiento);
+        other.setFechaRegistro(this.fechaRegistro);
+        other.setSexo(this.sexo);
+        other.setTactividads(this.tactividads);
+        other.setTelefono(this.telefono);
+        other.setTusuarioamigos(this.tusuarioamigos);
+    }
 }

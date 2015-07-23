@@ -41,7 +41,7 @@ public class MbRUsuario {
     private Session session;
     private Transaction transaction;
 
-    private boolean viewMode;
+
 
     public MbRUsuario() {
     }
@@ -52,7 +52,6 @@ public class MbRUsuario {
         this.usuario.setCodigoUsuario("");
         this.usuario.setSexo(true);
         this.txtContraseniaRepita = "";
-        this.viewMode = true;
     }
 
     private void cleanConnection() {
@@ -153,7 +152,6 @@ public class MbRUsuario {
             this.session = PersistenceUtil.getSessionFactory().openSession();
             this.usuarioDao = new UsuarioDao();
             this.usuarioDao.update(tusuario, this.session);
-            this.viewMode = true;
             showInformation("Se edito Correctamente");
         } catch (Exception error) {
             throw new RuntimeException("Error al buscar los datos.", error);
@@ -201,14 +199,6 @@ public class MbRUsuario {
 
     public void setUsuarios(List<Tusuario> usuarios) {
         this.usuarios = usuarios;
-    }
-
-    public boolean isViewMode() {
-        return viewMode;
-    }
-
-    public void setViewMode(boolean viewMode) {
-        this.viewMode = viewMode;
     }
 
 }

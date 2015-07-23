@@ -6,6 +6,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <body>
+
         <ui:composition template="./../layout/layout.xhtml">
 
             <ui:define name="top">
@@ -20,51 +21,52 @@
                     <h:panelGrid columns="3" id="panelGeneral">
 
                         <p:outputLabel value="Nombre:" for="txtNombre" />
-                        <p:inputText id="txtNombre" label="Nombre" value="#{mbRUsuario.usuario.nombre}" placeholder="juan" disabled="#{mbRUsuario.viewMode}" >
+                        <p:inputText id="txtNombre" label="Nombre" value="#{mbVUsuarioInfo.usuario.nombre}" placeholder="juan" disabled="#{mbVUsuarioInfo.viewMode}" >
                             <f:validator validatorId="empty" />
                         </p:inputText>
                         <p:message for="txtNombre" display="icon"/>
 
                         <p:outputLabel value="Apellido Paterno:" for="txtApellidoPaterno" />
-                        <p:inputText id="txtApellidoPaterno" label="Apellido paterno" value="#{mbRUsuario.usuario.apellidoPaterno}" placeholder="peres" disabled="#{mbRUsuario.viewMode}">
+                        <p:inputText id="txtApellidoPaterno" label="Apellido paterno" value="#{mbVUsuarioInfo.usuario.apellidoPaterno}" placeholder="peres" disabled="#{mbVUsuarioInfo.viewMode}">
                             <f:validator validatorId="empty" />
                         </p:inputText>
                         <p:message for="txtApellidoPaterno"/>
 
                         <p:outputLabel value="Apellido Materno:" for="txtApellidoMaterno" />
-                        <p:inputText id="txtApellidoMaterno" label="Apellido paterno" value="#{mbRUsuario.usuario.apellidoMaterno}" placeholder="otro apellido" disabled="#{mbRUsuario.viewMode}" >
+                        <p:inputText id="txtApellidoMaterno" label="Apellido paterno" value="#{mbVUsuarioInfo.usuario.apellidoMaterno}" placeholder="otro apellido" disabled="#{mbVUsuarioInfo.viewMode}" >
                             <f:validator validatorId="empty" />
                         </p:inputText>
                         <p:message for="txtApellidoMaterno"/>
 
                         <p:outputLabel value="Telefono:" for="txtTelefono" /> 
-                        <p:inputText id="txtTelefono" label="Telefono" value="#{mbRUsuario.usuario.telefono}" placeholder="1111111111" disabled="#{mbRUsuario.viewMode}"/>
+                        <p:inputText id="txtTelefono" label="Telefono" value="#{mbVUsuarioInfo.usuario.telefono}" placeholder="1111111111" disabled="#{mbVUsuarioInfo.viewMode}"/>
                         <div></div>
 
                         <p:outputLabel value="Correo Electronico:" for="txtCorreoElectronico" /> 
-                        <p:inputText id="txtCorreoElectronico" label="Correo Electronico" value="#{mbRUsuario.usuario.correoElectronico}" placeholder="e@correo.com" disabled="#{mbRUsuario.viewMode}">
+                        <p:inputText id="txtCorreoElectronico" label="Correo Electronico" value="#{mbVUsuarioInfo.usuario.correoElectronico}" placeholder="e@correo.com" disabled="#{mbVUsuarioInfo.viewMode}">
                             <f:validator validatorId="empty" />
                             <f:validator validatorId="email" />
                         </p:inputText>
                         <p:message for="txtCorreoElectronico"/>
 
                         <p:outputLabel value="Fecha Nacimiento:" for="txtFechaNacimiento" />
-                        <p:calendar id="txtFechaNacimiento" label="Fecha Nacimiento" value="#{mbRUsuario.usuario.fechaNacimiento}" showOn="button" pattern="dd/MM/yyyy" required="true" requiredMessage="Fecha de nacimiento es requerido" placeholder="dd/mm/yyyy" disabled="#{mbRUsuario.viewMode}"/>
+                        <p:calendar id="txtFechaNacimiento" label="Fecha Nacimiento" value="#{mbVUsuarioInfo.usuario.fechaNacimiento}" showOn="button" pattern="dd/MM/yyyy" required="true" requiredMessage="Fecha de nacimiento es requerido" placeholder="dd/mm/yyyy" disabled="#{mbVUsuarioInfo.viewMode}"/>
                         <p:message for="txtFechaNacimiento"/>
 
                         <p:outputLabel value="Sexo:"  for="radioSexo" />
-                        <p:selectOneRadio id="radioSexo" label="Sexo" value="#{mbRUsuario.usuario.sexo}" disabled="#{mbRUsuario.viewMode}" >
+                        <p:selectOneRadio id="radioSexo" label="Sexo" value="#{mbVUsuarioInfo.usuario.sexo}" disabled="#{mbVUsuarioInfo.viewMode}" >
                             <f:selectItem  itemLabel="Masculino" itemValue="true"/>
                             <f:selectItem  itemLabel="Femenino" itemValue="false"/>
                         </p:selectOneRadio>
                         <h:panelGroup></h:panelGroup>
 
                         <h:panelGroup></h:panelGroup>
-                        <h:panelGroup rendered="#{mbRUsuario.viewMode}" >
-                            <p:commandButton value="Editar" actionListener="#{mbRUsuario.setViewMode(false)}" update="frmMiInformacion" icon="ui-icon-check" />
+                        <h:panelGroup rendered="#{mbVUsuarioInfo.viewMode}" >
+                            <p:commandButton value="Editar" actionListener="#{mbVUsuarioInfo.setViewMode(false)}" update="frmMiInformacion" icon="ui-icon-pencil" />
                         </h:panelGroup>
-                        <h:panelGroup rendered="#{not mbRUsuario.viewMode}" >
-                            <p:commandButton value="Guardar" actionListener="#{mbRUsuario.loadMyUser}" update="frmMiInformacion" icon="ui-icon-check" />
+                        <h:panelGroup rendered="#{not mbVUsuarioInfo.viewMode}" >
+                            <p:commandButton id="btnCancelar" value="Cancelar" actionListener="#{mbVUsuarioInfo.cancel}" update="frmMiInformacion" icon="ui-icon-cancel" />
+                            <p:commandButton id="btnActualizar" value="Actualizar" actionListener="#{mbVUsuarioInfo.update}" update=":frmMain, :frmMiInformacion" icon="ui-icon-check" />
                         </h:panelGroup>
                     </h:panelGrid>
 

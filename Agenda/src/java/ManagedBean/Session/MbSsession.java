@@ -11,6 +11,7 @@ import Models.Tusuario;
 import Class.Util.Security.EncryptUtil;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
+import javax.ejb.Stateless;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -22,7 +23,8 @@ import org.hibernate.Session;
  *
  * @author j.reyes
  */
-@ManagedBean
+
+@ManagedBean(name = "mbSsession")
 @SessionScoped
 public class MbSsession implements Serializable{
 
