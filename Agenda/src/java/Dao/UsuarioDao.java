@@ -5,6 +5,7 @@
  */
 package Dao;
 
+import Dao.Exception.DaoExceptionSessionClose;
 import Models.Tusuario;
 import java.util.List;
 import org.hibernate.Session;
@@ -21,17 +22,17 @@ public class UsuarioDao implements Interface.CrudUsuario {
         if (session.isOpen()) {
             return (Tusuario)session.load(Tusuario.class,id);
         } else {
-            throw new RuntimeException("Session Cerrada");
+            throw new DaoExceptionSessionClose();
         }
     }
 
     @Override
     public List<Tusuario> getAll(Session session) throws RuntimeException {
         if (session.isOpen()) {
-            return session.getNamedQuery("@HQL_GET_ALL_TUSUARIO")
+            return session.getNamedQuery("@HQL.USUARIO.GET.ALL")
                     .list();
         } else {
-            throw new RuntimeException("Session Cerrada");
+            throw new DaoExceptionSessionClose();
         }
     }
 
@@ -41,7 +42,7 @@ public class UsuarioDao implements Interface.CrudUsuario {
             session.delete(entity);
             return true;
         } else {
-            throw new RuntimeException("Session Cerrada");
+            throw new DaoExceptionSessionClose();
         }
     }
 
@@ -51,7 +52,7 @@ public class UsuarioDao implements Interface.CrudUsuario {
             session.update(entity);
             return true;
         } else {
-            throw new RuntimeException("Session Cerrada");
+            throw new DaoExceptionSessionClose();
         }
     }
 
@@ -60,7 +61,7 @@ public class UsuarioDao implements Interface.CrudUsuario {
         if (session.isOpen()) {
             return (String) session.save(entity);
         } else {
-            throw new RuntimeException("Session Cerrada");
+            throw new DaoExceptionSessionClose();
         }
     }
 
@@ -71,7 +72,7 @@ public class UsuarioDao implements Interface.CrudUsuario {
                      .add(Restrictions.eq("correoElectronico", correoElectronico))
                      .uniqueResult();
         }else
-            throw new RuntimeException("Session Cerrada");
+            throw new DaoExceptionSessionClose();
     }
 
 }

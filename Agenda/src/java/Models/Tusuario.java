@@ -20,7 +20,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "tusuario", catalog = "dbappagendajava")
-@NamedQueries({@NamedQuery(name = "@HQL_GET_ALL_TUSUARIO", query = "from Tusuario")})
+@NamedQueries({@NamedQuery(name = "@HQL.USUARIO.GET.ALL", query = "from Tusuario")})
 public class Tusuario implements java.io.Serializable {
 
     @Id
